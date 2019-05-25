@@ -3,6 +3,7 @@ package com.namageoff.actnowaz.features.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View.GONE
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         var viewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
         viewModel.init()
         viewModel.getNewsRepository()?.observe(this, Observer {
+            progressBar.visibility = GONE
             recyclerViewNews.adapter = MainAdapter(it) { news -> openDetailsActivity(news) }
         })
     }
@@ -30,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, DetailsActivity::class.java)
         var bundle = Bundle()
         bundle.putString("title", value.title)
-        bundle.putString("date", value.imageURL)
+        bundle.putString("date", value.date)
         bundle.putString("desc", value.report)
         bundle.putString("image_url", value.imageURL)
         bundle.putString("link", value.link)
