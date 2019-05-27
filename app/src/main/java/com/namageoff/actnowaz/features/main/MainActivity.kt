@@ -3,12 +3,15 @@ package com.namageoff.actnowaz.features.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View.GONE
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.namageoff.actnowaz.R
 import com.namageoff.actnowaz.features.details.DetailsActivity
+import com.namageoff.actnowaz.features.info.InfoActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -40,4 +43,19 @@ class MainActivity : AppCompatActivity() {
         intent.putExtras(bundle)
         startActivity(intent)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_info -> {
+            startActivity(Intent(this, InfoActivity::class.java))
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
+
+    }
+
 }

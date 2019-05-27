@@ -1,43 +1,34 @@
-package com.namageoff.actnowaz.features.details
+package com.namageoff.actnowaz.features.info
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.Html
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.namageoff.actnowaz.R
 import kotlinx.android.synthetic.main.activity_details.*
-import java.text.ParseException
-import java.text.SimpleDateFormat
 
-
-class DetailsActivity : AppCompatActivity() {
+@SuppressLint("Registered")
+class InfoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_details)
+        setContentView(R.layout.activity_info)
 
         supportActionBar!!.elevation = 1f
-        supportActionBar!!.title = intent.getStringExtra("title")
+        supportActionBar!!.title = "Info"
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        val date = intent.getStringExtra("date")
-        val input = SimpleDateFormat("yy-MM-dd")
-        val output = SimpleDateFormat("dd MMM yyyy")
-        try {
-            textViewDate.text = (output.format(input.parse(date)))    // format output
-        } catch (e: ParseException) {
-            e.printStackTrace()
-            textViewDate.text = intent.getStringExtra("date")
-        }
-
-        textView.text = intent.getStringExtra("desc")
+      /*  textView.text = intent.getStringExtra("desc")
         textViewTitle.text = intent.getStringExtra("title")
-        textViewURL.text = intent.getStringExtra("link")
+        textViewDate.text = intent.getStringExtra("date")
+        textViewURL.text = intent.getStringExtra("link")*/
 
         Glide
                 .with(this)
-                .load(intent.getStringExtra("image_url"))
+                .load(R.mipmap.ic_launcher)
                 .centerCrop()
                 .placeholder(R.drawable.ic_launcher_background)
                 .into(imageView2)

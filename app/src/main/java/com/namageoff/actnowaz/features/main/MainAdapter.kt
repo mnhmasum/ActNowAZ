@@ -6,7 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.namageoff.actnowaz.R
+import kotlinx.android.synthetic.main.activity_details.*
 import kotlinx.android.synthetic.main.item_news.view.*
+import java.text.ParseException
+import java.text.SimpleDateFormat
 
 class MainAdapter(
         private val characters: List<NewsResponse>,
@@ -34,8 +37,17 @@ class MainAdapter(
 
             view.setOnClickListener { itemClick(article) }
             view.textTitle.text = article.title
-            view.textPublishedAt.text = article.date
             view.textShortDescription.text = article.description
+
+            val date = article.date
+            val input = SimpleDateFormat("yy-MM-dd")
+            val output = SimpleDateFormat("dd MMM yyyy")
+            try {
+                view.textPublishedAt.text = (output.format(input.parse(date)))    // format output
+            } catch (e: ParseException) {
+                e.printStackTrace()
+                view.textPublishedAt.text = article.date
+            }
         }
     }
 }
