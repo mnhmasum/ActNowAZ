@@ -33,7 +33,7 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
                     .setContentText("Weekly activism:")
                     .setStyle(NotificationCompat.BigTextStyle().bigText("Check out this week's activity!"))
                     /*.setLargeIcon(largeIcon)*/
-                .setSmallIcon(R.drawable.ic_launcher_web) //needs white icon with transparent BG (For all platforms)
+                    .setSmallIcon(R.drawable.ic_launcher_web) //needs white icon with transparent BG (For all platforms)
                     .setColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
                     .setVibrate(longArrayOf(1000, 1000))
                     .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
