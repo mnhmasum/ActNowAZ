@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         calendar.set(Calendar.MINUTE, 0)
 
         /* Alarm will be triggered exactly at 8:30 every day */
-        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
 
     }
 
