@@ -38,7 +38,9 @@ class MainActivity : AppCompatActivity() {
 
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, AlarmBroadcastReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(this, 200, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = PendingIntent.getBroadcast(this, 200,
+                intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY)
