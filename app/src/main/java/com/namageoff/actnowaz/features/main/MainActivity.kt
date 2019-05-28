@@ -21,7 +21,6 @@ import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
-    var list: List<NewsResponse> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         calendar.set(Calendar.HOUR_OF_DAY, 9)
         calendar.set(Calendar.MINUTE, 0)
 
-        /* Alarm will be triggered exactly at 8:30 every day */
+        /* Alarm will be triggered exactly at 9:00 AM on Tuesday every day */
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
 
     }
