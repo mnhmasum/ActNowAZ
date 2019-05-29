@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.init()
         viewModel.getNewsRepository()?.observe(this, Observer {
             progressBar.visibility = GONE
-            recyclerViewNews.adapter = MainAdapter(it) { news -> openDetailsActivity(news) }
+            recyclerViewNews.adapter = MainAdapter(it.reversed()) { news -> openDetailsActivity(news) }
         })
 
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
