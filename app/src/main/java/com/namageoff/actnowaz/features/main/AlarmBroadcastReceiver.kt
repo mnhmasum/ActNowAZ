@@ -10,7 +10,6 @@ import android.content.Intent
 import android.os.Build
 import android.provider.Settings
 import android.util.Log
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.namageoff.actnowaz.R
@@ -19,11 +18,10 @@ import java.util.*
 class AlarmBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         Log.i("Alarm", "Alarm Triggered")
-        Toast.makeText(context, "Alarm Triggered", Toast.LENGTH_SHORT).show()
 
-        val dahuaPushActivity = Intent(context, MainActivity::class.java)
+        val activity = Intent(context, MainActivity::class.java)
 
-        val pendingIntent = PendingIntent.getActivity(context, 0 /* Request code */, dahuaPushActivity, PendingIntent.FLAG_ONE_SHOT)
+        val pendingIntent = PendingIntent.getActivity(context, 0 /* Request code */, activity, PendingIntent.FLAG_ONE_SHOT)
 
         val channelId = createNotificationChannel(context)
 
@@ -44,8 +42,6 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
 
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify((Date(System.currentTimeMillis()).time / 1000L % Integer.MAX_VALUE).toInt() /* ID of notification */, notificationBuilder?.build())
-
-
     }
 
     private fun createNotificationChannel(context: Context): String? {

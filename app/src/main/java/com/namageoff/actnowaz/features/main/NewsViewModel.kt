@@ -5,11 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 import com.artifactslab.newspan.retrofit.apiClient
-import com.namageoff.actnowaz.features.main.NewsResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 
 class NewsViewModel : ViewModel() {
     private var mutableLiveData: MutableLiveData<List<NewsResponse>>? = null

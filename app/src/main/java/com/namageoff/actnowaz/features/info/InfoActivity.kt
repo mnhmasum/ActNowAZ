@@ -2,7 +2,6 @@ package com.namageoff.actnowaz.features.info
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.Html
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -15,16 +14,10 @@ class InfoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info)
-
         supportActionBar!!.elevation = 1f
         supportActionBar!!.title = "Info"
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-
-      /*  textView.text = intent.getStringExtra("desc")
-        textViewTitle.text = intent.getStringExtra("title")
-        textViewDate.text = intent.getStringExtra("date")
-        textViewURL.text = intent.getStringExtra("link")*/
 
         Glide
                 .with(this)
