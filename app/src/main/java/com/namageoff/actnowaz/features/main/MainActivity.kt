@@ -11,13 +11,13 @@ import android.view.View.GONE
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.namageoff.actnowaz.R
 import com.namageoff.actnowaz.features.details.DetailsActivity
 import com.namageoff.actnowaz.features.info.InfoActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
-import kotlin.collections.ArrayList
+import androidx.recyclerview.widget.LinearLayoutManager
+import android.util.Log
+import com.namageoff.actnowaz.R
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,7 +26,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        recyclerViewNews.layoutManager = LinearLayoutManager(this)
+        val mLayoutManager = LinearLayoutManager(applicationContext)
+        recyclerViewNews.setLayoutManager(mLayoutManager)
 
         var viewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
         viewModel.init()
@@ -35,19 +36,42 @@ class MainActivity : AppCompatActivity() {
             recyclerViewNews.adapter = MainAdapter(it.reversed()) { news -> openDetailsActivity(news) }
         })
 
-        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        var alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, AlarmBroadcastReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(this, 200,
-                intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        var pendingIntent = PendingIntent.getBroadcast(
+            this, 100,
+            intent, PendingIntent.FLAG_UPDATE_CURRENT
+        )
 
         val calendar = Calendar.getInstance()
-        calendar.timeInMillis = System.currentTimeMillis()
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY)
         calendar.set(Calendar.HOUR_OF_DAY, 9)
         calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 10)
 
-        /* Alarm will be triggered exactly at 9:00 AM on Tuesday every day */
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
+
+        val myIntent = Intent(this@MainActivity, AlarmBroadcastReceiver::class.java)
+
+        val isWorking = PendingIntent.getBroadcast(this@MainActivity, 0, myIntent, PendingIntent.FLAG_NO_CREATE) != null
+        if (isWorking) {
+            Log.d("alarm", "is working")
+        } else {
+            Log.d("alarm", "is not working")
+        }
+
+        if (!isWorking) {
+            alarmManager.setRepeating(
+                AlarmManager.RTC_WAKEUP,
+                calendar.timeInMillis,
+                AlarmManager.INTERVAL_DAY,
+                pendingIntent
+            )
+        }
+
+        //if (calendar.timeInMillis < System.currentTimeMillis()) {
+            /* Alarm will be triggered exactly at 9:00 AM on Tuesday every day */
+
+       // }
 
     }
 

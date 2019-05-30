@@ -12,8 +12,10 @@ import android.provider.Settings
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import com.namageoff.actnowaz.R
 import java.util.*
+
 
 class AlarmBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
@@ -21,27 +23,52 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
 
         val activity = Intent(context, MainActivity::class.java)
 
-        val pendingIntent = PendingIntent.getActivity(context, 0 /* Request code */, activity, PendingIntent.FLAG_ONE_SHOT)
+        val pendingIntent =
+            PendingIntent.getActivity(context, 0 /* Request code */, activity, PendingIntent.FLAG_ONE_SHOT)
 
         val channelId = createNotificationChannel(context)
 
         val notificationBuilder = channelId?.let {
             NotificationCompat.Builder(context, it)
-                    .setContentTitle("Get involved!")
-                    .setContentText("Weekly activism:")
-                    .setStyle(NotificationCompat.BigTextStyle().bigText("Check out this week's activity!"))
-                    /*.setLargeIcon(largeIcon)*/
-                    .setSmallIcon(R.drawable.ic_launcher_web) //needs white icon with transparent BG (For all platforms)
-                    .setColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
-                    .setVibrate(longArrayOf(1000, 1000))
-                    .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
-                    .setContentIntent(pendingIntent)
-                    .setPriority(Notification.PRIORITY_HIGH)
-                    .setAutoCancel(true)
+                .setContentTitle("Get involved!")
+                .setContentText("Weekly activism:")
+                .setStyle(NotificationCompat.BigTextStyle().bigText("Check out this week's activity!"))
+                /*.setLargeIcon(largeIcon)*/
+                .setSmallIcon(R.drawable.ic_launcher_web) //needs white icon with transparent BG (For all platforms)
+                .setColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
+                .setVibrate(longArrayOf(1000, 1000))
+                .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+                .setContentIntent(pendingIntent)
+                .setPriority(Notification.PRIORITY_HIGH)
+                .setAutoCancel(true)
         }
 
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.notify((Date(System.currentTimeMillis()).time / 1000L % Integer.MAX_VALUE).toInt() /* ID of notification */, notificationBuilder?.build())
+
+        val calendar = Calendar.getInstance()
+        val day = calendar.get(Calendar.DAY_OF_WEEK)
+
+
+        val preferences = context.getSharedPreferences("prefs", 0)
+
+
+        if (day == Calendar.TUESDAY && preferences.getInt("alreadyAlarmed", 0) == 0) {
+
+            preferences.edit(commit = true) {
+                putInt("alreadyAlarmed", 1)
+            }
+
+            notificationManager.notify(
+                (Date(System.currentTimeMillis()).time / 1000L % Integer.MAX_VALUE).toInt() /* ID of notification */,
+                notificationBuilder?.build()
+            )
+        } else {
+            preferences.edit(commit = true) {
+                putInt("alreadyAlarmed", 0)
+            }
+
+        }
+
     }
 
     private fun createNotificationChannel(context: Context): String? {
