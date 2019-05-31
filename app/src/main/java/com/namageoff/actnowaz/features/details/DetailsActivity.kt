@@ -35,12 +35,11 @@ class DetailsActivity : AppCompatActivity() {
         textViewTitle.text = intent.getStringExtra("title")
         textViewURL.text = intent.getStringExtra("link")
 
-        Glide
-                .with(this)
-                .load(intent.getStringExtra("image_url"))
-                .centerCrop()
-                .placeholder(R.drawable.ic_launcher_background)
-                .into(imageView2)
+        Glide.with(this)
+             .load(intent.getStringExtra("image_url"))
+             .centerCrop()
+             .placeholder(R.drawable.ic_launcher_background)
+             .into(imageView2)
     }
 
     override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
