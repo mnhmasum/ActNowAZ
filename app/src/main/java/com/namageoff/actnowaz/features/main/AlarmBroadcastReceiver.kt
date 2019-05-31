@@ -10,16 +10,19 @@ import android.content.Intent
 import android.os.Build
 import android.provider.Settings
 import android.util.Log
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import com.namageoff.actnowaz.R
+import com.namageoff.actnowaz.application.MainApplication
 import java.util.*
 
 
 class AlarmBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         Log.i("Alarm", "Alarm Triggered")
+        //Toast.makeText(context, "Alarm Triggered " + Calendar.TUESDAY + " == " + MainApplication.isAppOnForeground, Toast.LENGTH_SHORT).show()
 
         val activity = Intent(context, MainActivity::class.java)
 
@@ -39,7 +42,6 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
                 .setVibrate(longArrayOf(1000, 1000))
                 .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
                 .setContentIntent(pendingIntent)
-                .setPriority(Notification.PRIORITY_HIGH)
                 .setAutoCancel(true)
         }
 
@@ -48,15 +50,14 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
         val calendar = Calendar.getInstance()
         val day = calendar.get(Calendar.DAY_OF_WEEK)
 
-
         val preferences = context.getSharedPreferences("prefs", 0)
 
-
-        if (day == Calendar.TUESDAY && preferences.getInt("alreadyAlarmed", 0) == 0) {
-
+        if (day == Calendar.TUESDAY && !MainApplication.isAppOnForeground) {
             preferences.edit(commit = true) {
                 putInt("alreadyAlarmed", 1)
             }
+
+            //Toast.makeText(context, "Alarm BOOOOM", Toast.LENGTH_SHORT).show()
 
             notificationManager.notify(
                 (Date(System.currentTimeMillis()).time / 1000L % Integer.MAX_VALUE).toInt() /* ID of notification */,
@@ -66,7 +67,6 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
             preferences.edit(commit = true) {
                 putInt("alreadyAlarmed", 0)
             }
-
         }
 
     }
