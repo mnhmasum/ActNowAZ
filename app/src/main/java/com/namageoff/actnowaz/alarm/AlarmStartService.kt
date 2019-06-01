@@ -1,4 +1,4 @@
-package com.namageoff.actnowaz.features.main
+package com.namageoff.actnowaz.alarm
 
 import android.app.AlarmManager
 import android.app.PendingIntent

@@ -23,9 +23,9 @@
         <activity android:name=".features.details.DetailsActivity" />
         <activity android:name=".features.info.InfoActivity" />
 
-        <receiver android:name=".features.main.AlarmBroadcastReceiver" />
+        <receiver android:name=".alarm.AlarmBroadcastReceiver" />
 
-        <receiver android:name=".features.main.AlarmStartService">
+        <receiver android:name=".alarm.AlarmStartService">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
