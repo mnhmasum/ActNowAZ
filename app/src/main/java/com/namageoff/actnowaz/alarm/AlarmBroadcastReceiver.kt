@@ -1,6 +1,5 @@
-package com.namageoff.actnowaz.features.main
+package com.namageoff.actnowaz.alarm
 
-import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -10,12 +9,12 @@ import android.content.Intent
 import android.os.Build
 import android.provider.Settings
 import android.util.Log
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import com.namageoff.actnowaz.R
 import com.namageoff.actnowaz.application.MainApplication
+import com.namageoff.actnowaz.features.main.MainActivity
 import java.util.*
 
 

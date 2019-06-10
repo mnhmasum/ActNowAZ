@@ -18,6 +18,7 @@ import java.util.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import com.namageoff.actnowaz.R
+import com.namageoff.actnowaz.alarm.AlarmBroadcastReceiver
 
 
 class MainActivity : AppCompatActivity() {
