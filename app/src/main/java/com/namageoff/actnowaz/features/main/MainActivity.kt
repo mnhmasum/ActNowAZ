@@ -49,7 +49,6 @@ class MainActivity : AppCompatActivity() {
         calendar.set(Calendar.MINUTE, 0)
         calendar.set(Calendar.SECOND, 10)
 
-
         val myIntent = Intent(this@MainActivity, AlarmBroadcastReceiver::class.java)
 
         val isWorking = PendingIntent.getBroadcast(this@MainActivity, 0, myIntent, PendingIntent.FLAG_NO_CREATE) != null
@@ -67,12 +66,6 @@ class MainActivity : AppCompatActivity() {
                 pendingIntent
             )
         }
-
-        //if (calendar.timeInMillis < System.currentTimeMillis()) {
-            /* Alarm will be triggered exactly at 9:00 AM on Tuesday every day */
-
-       // }
-
     }
 
     var openDetailsActivity = fun(value: NewsResponse) {
