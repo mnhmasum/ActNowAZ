@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.namageoff.actnowaz.R
-import kotlinx.android.synthetic.main.activity_details.*
 import kotlinx.android.synthetic.main.item_news.view.*
 import java.text.ParseException
 import java.text.SimpleDateFormat

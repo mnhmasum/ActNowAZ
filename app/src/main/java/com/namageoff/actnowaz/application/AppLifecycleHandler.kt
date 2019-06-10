@@ -5,7 +5,6 @@ import android.app.Application
 import android.content.ComponentCallbacks2
 import android.content.res.Configuration
 import android.os.Bundle
-import java.util.concurrent.atomic.AtomicBoolean
 
 class AppLifecycleHandler(private val lifeCycleDelegate: LifeCycleDelegate) : Application.ActivityLifecycleCallbacks, ComponentCallbacks2 {
 

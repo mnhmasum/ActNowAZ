@@ -1,7 +1,6 @@
 package com.namageoff.actnowaz.application
 
 import android.app.Application
-import android.widget.Toast
 import com.artifactslab.newspan.retrofit.initRetrofit
 
 class MainApplication : Application(), LifeCycleDelegate {
